@@ -68,9 +68,9 @@ dataset:
     th predict.lua
 
 ## Figure
-Data augmentation + ZCA
+data augmentation + preprocessing
 
-![data-augmentation-ZCA](https://raw.githubusercontent.com/nagadomi/kaggle-cifar10-torch7/master/figure/zca.png)
+![data-augmentation-preprocessing](https://raw.githubusercontent.com/nagadomi/kaggle-cifar10-torch7/master/figure/zca.png)
 
 ## References
 - Alex Krizhevsky, Ilya Sutskever, Geoffrey E. Hinton, "ImageNet Classification with Deep Convolutional Neural Networks"
