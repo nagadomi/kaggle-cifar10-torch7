@@ -67,7 +67,7 @@ dataset:
     th train.lua
     th predict.lua
 
-## Figures
+## Figure
 Data augmentation + ZCA
 
 ![data-augmentation-ZCA](https://raw.githubusercontent.com/nagadomi/kaggle-cifar10-torch7/master/figure/zca.png)
