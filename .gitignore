@@ -1,0 +1,8 @@
+*~
+data/train
+data/test
+data/*.bin
+data/trainLabels.csv
+models/*.bin
+models/*.model
+submission.txt
