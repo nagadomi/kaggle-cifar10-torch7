@@ -45,7 +45,7 @@ Please check your Torch7/CUDA environment when this code fails.
 
 ### Convert dataset
 
-Please place the data files into a subfolder ./data.
+Please place the [data files](http://www.kaggle.com/c/cifar-10/data) into a subfolder ./data.
 
     ls ./data
     test  train  trainLabels.csv
