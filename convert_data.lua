@@ -32,7 +32,7 @@ local function convert_train()
       else
 	 local col = string.split(line, ",")
 	 local img = image.load(string.format("%s/train/%d.png", DATA_DIR, tonumber(col[1])))
-	 x[i]:copy(image)
+	 x[i]:copy(img)
 	 y[i]:copy(label_vector(col[2]))
 	 if i % 100 == 0 then
 	    xlua.progress(i, TRAIN_N)
@@ -42,8 +42,8 @@ local function convert_train()
    end
    file:close()
    
-   torch.save(string.format("%d/train_x.bin", DATA_DIR), x)
-   torch.save(string.format("%d/train_y.bin", DATA_DIR), y)
+   torch.save(string.format("%s/train_x.bin", DATA_DIR), x)
+   torch.save(string.format("%s/train_y.bin", DATA_DIR), y)
 end
 local TEST_N = 300000
 local function convert_test()
