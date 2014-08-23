@@ -11,7 +11,6 @@ function training()
    local y = torch.load(string.format("%s/train_y.bin", DATA_DIR))
    local model = nin_model():cuda()
    local criterion = nn.MSECriterion():cuda()
-   local LEARNING_RATE = 0.1
    local sgd_config = {
       learningRate = 0.1,
       learningRateDecay = 5.0e-6,

@@ -47,7 +47,6 @@ local function convert_train()
 end
 local TEST_N = 300000
 local function convert_test()
-   print(label_file)
    local x = torch.Tensor(TEST_N, 3, 32, 32)
    local i = 1
    for i = 1, TEST_N do
