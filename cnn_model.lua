@@ -19,6 +19,7 @@ function cnn_model() -- validate.lua Acc: 0.88
    
    -- fully connected layers
    model:add(nn.SpatialConvolutionMM(512, 1024, 2, 2, 1, 1))
+   model:add(nn.ReLU())
    model:add(nn.Dropout(0.5))
    model:add(nn.SpatialConvolutionMM(1024, 10, 1, 1, 1, 1))
    
