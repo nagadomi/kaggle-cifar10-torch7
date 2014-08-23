@@ -2,7 +2,7 @@ require 'torch'
 require 'image'
 
 -- memory efficient version of unsup.zca_whiten/unsup.pcacov.
--- original version is can be found at: https://github.com/koraykv/unsup/
+-- original version can be found at: https://github.com/koraykv/unsup/
 local function pcacov(x)
    local mean = torch.mean(x, 1)
    local xm = x:clone()
