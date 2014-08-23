@@ -24,7 +24,7 @@ Code for CIFAR-10 competition. http://www.kaggle.com/c/cifar-10
 Install CUDA (on Ubuntu 14.04):
 
     apt-get install nvidia-331
-    apt-get install nvidia-cuda-dev
+    apt-get install nvidia-cuda-toolkit
 
 Install Torch7:
 
