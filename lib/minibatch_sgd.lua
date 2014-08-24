@@ -59,3 +59,4 @@ function minibatch_sgd(model, criterion,
    
    return confusion
 end
+return true

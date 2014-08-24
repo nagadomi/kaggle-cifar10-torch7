@@ -49,11 +49,11 @@ function data_augmentation(x, y)
       for i = 1, x:size(1) do
 	 local src = x[i]
 	 local images = {}
-	 for i = 1, #CROP_POS24 do
-	    table.insert(images, crop(src, CROP_POS24[i], 24))
+	 for j = 1, #CROP_POS24 do
+	    table.insert(images, crop(src, CROP_POS24[j], 24))
 	 end
-	 for i = 1, #CROP_POS28 do
-	    table.insert(images, zoomout(crop(src, CROP_POS28[i], 28)))
+	 for j = 1, #CROP_POS28 do
+	    table.insert(images, zoomout(crop(src, CROP_POS28[j], 28)))
 	 end
 	 for j = 1, #images do
 	    new_x[scale * 2 * (i - 1) + j]:copy(images[j])
@@ -84,7 +84,7 @@ function data_augmentation(x, y)
       return new_x
    end
 end
-
+return true
 --require './save_images'
 --local data = torch.load("../data/train_x.bin")
 --local jit = data_augmentation(data[13])
