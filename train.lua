@@ -6,7 +6,7 @@ require './lib/preprocessing'
 require './nin_model.lua'
 
 function training()
-   local MAX_EPOCH = 10
+   local MAX_EPOCH = 20
    local x = torch.load(string.format("%s/train_x.bin", DATA_DIR))
    local y = torch.load(string.format("%s/train_y.bin", DATA_DIR))
    local model = nin_model():cuda()
