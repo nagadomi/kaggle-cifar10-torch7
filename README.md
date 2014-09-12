@@ -76,3 +76,4 @@ data augmentation + preprocessing
 ## References
 - Alex Krizhevsky, Ilya Sutskever, Geoffrey E. Hinton, "ImageNet Classification with Deep Convolutional Neural Networks"
 - Min Lin, Qiang Chen, Shuicheng Yan, "Network In Network"
+- R. Collobert, K. Kavukcuoglu, C. Farabet, "Torch7: A Matlab-like Environment for Machine Learning"
