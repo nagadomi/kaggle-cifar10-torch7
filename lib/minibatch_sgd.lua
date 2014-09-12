@@ -22,10 +22,8 @@ function minibatch_sgd(model, criterion,
       local targets = torch.Tensor(batch_size,
 				   train_y:size(2))
       for i = 1, batch_size do
-         local input = train_x[shuffle[t + i - 1]]
-         local target = train_y[shuffle[t + i - 1]]
-         inputs[i]:copy(input)
-	 targets[i]:copy(target)
+         inputs[i]:copy(train_x[shuffle[t + i - 1]])
+	 targets[i]:copy(train_y[shuffle[t + i - 1]])
       end
       inputs = inputs:cuda()
       targets = targets:cuda()
@@ -36,14 +34,15 @@ function minibatch_sgd(model, criterion,
 	 end
 	 gradParameters:zero()
 	 local f = 0
-	 for i = 1, inputs:size(1) do
-	    local output = model:forward(inputs[i])
-	    local err = criterion:forward(output, targets[i])
+	 local output = model:forward(inputs)
+	 local df_do = torch.Tensor(output:size(1), targets:size(2))
+	 for k = 1, output:size(1) do
+	    local err = criterion:forward(output[k], targets[k])
 	    f = f + err
-	    confusion:add(output, targets[i])
-	    local df_do = criterion:backward(output, targets[i])
-	    model:backward(inputs[i], df_do)
+	    df_do[k]:copy(criterion:backward(output[k], targets[k]))
+	    confusion:add(output[k], targets[k])
 	 end
+	 model:backward(inputs, df_do:cuda())
 	 gradParameters:div(inputs:size(1))
 	 f = f / inputs:size(1)
 	 return f, gradParameters

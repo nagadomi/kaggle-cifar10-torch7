@@ -12,10 +12,10 @@ function training()
    local model = nin_model():cuda()
    local criterion = nn.MSECriterion():cuda()
    local sgd_config = {
-      learningRate = 0.1,
+      learningRate = 1.0,
       learningRateDecay = 5.0e-6,
       momentum = 0.9,
-      xBatchSize = 12
+      xBatchSize = 64
    }
    local params = nil
 
@@ -33,7 +33,7 @@ function training()
       if epoch == MAX_EPOCH then
 	 -- final epoch
 	 sgd_config.learningRateDecay = 0
-	 sgd_config.learningRate = 0.001
+	 sgd_config.learningRate = 0.01
       end
       model:training()
       print(minibatch_sgd(model, criterion, x, y,

@@ -4,6 +4,7 @@ require './SETTINGS'
 require './lib/minibatch_sgd'
 require './lib/data_augmentation'
 require './lib/preprocessing'
+--require './nin_model.lua'
 require './nin_model.lua'
 
 local function test(model, params, test_x, test_y, classes)
@@ -11,14 +12,16 @@ local function test(model, params, test_x, test_y, classes)
    for i = 1, test_x:size(1) do
       local preds = torch.Tensor(10):zero()
       local x = data_augmentation(test_x[i])
+      local batch = torch.Tensor(64, x:size(2), x:size(3), x:size(4)):zero()
+      
       preprocessing(x, params)
-      x = x:cuda()
+      batch:narrow(1, 1, x:size(1)):copy(x)
+      local z = model:forward(batch:cuda()):float()
       -- averaging
       for j = 1, x:size(1) do
-	 preds = preds + model:forward(x[j]):float()
+	 preds = preds + z[j]
       end
       preds:div(x:size(1))
-      
       confusion:add(preds, test_y[i])
       xlua.progress(i, test_x:size(1))
    end
@@ -29,7 +32,7 @@ end
 local function validation()
    local TRAIN_SIZE = 40000
    local TEST_SIZE = 10000
-   local MAX_EPOCH = 10
+   local MAX_EPOCH = 20
 
    local x = torch.load(string.format("%s/train_x.bin", DATA_DIR))
    local y = torch.load(string.format("%s/train_y.bin", DATA_DIR))
@@ -40,10 +43,10 @@ local function validation()
    local model = nin_model():cuda()
    local criterion = nn.MSECriterion():cuda()
    local sgd_config = {
-      learningRate = 0.1,
+      learningRate = 1.0,
       learningRateDecay = 5.0e-6,
       momentum = 0.9,
-      xBatchSize = 12
+      xBatchSize = 64
    }
    local params = nil
    
@@ -59,7 +62,7 @@ local function validation()
       if epoch == MAX_EPOCH then
 	 -- final epoch
 	 sgd_config.learningRateDecay = 0
-	 sgd_config.learningRate = 0.001
+	 sgd_config.learningRate = 0.01
       end
       model:training()
       print("# " .. epoch)
