@@ -3,13 +3,14 @@ require './SETTINGS'
 require './lib/minibatch_sgd'
 require './lib/data_augmentation'
 require './lib/preprocessing'
-require './nin_model.lua'
+--require './nin_model.lua'
+require './very_deep_model.lua'
 
 function training()
-   local MAX_EPOCH = 20
+   local MAX_EPOCH = 15
    local x = torch.load(string.format("%s/train_x.bin", DATA_DIR))
    local y = torch.load(string.format("%s/train_y.bin", DATA_DIR))
-   local model = nin_model():cuda()
+   local model = very_deep_model():cuda()
    local criterion = nn.MSECriterion():cuda()
    local sgd_config = {
       learningRate = 1.0,
@@ -39,7 +40,7 @@ function training()
       print(minibatch_sgd(model, criterion, x, y,
 			  CLASSES, sgd_config))
       model:evaluate()
-      torch.save(string.format("models/nin_%d.model", epoch), model)
+      torch.save(string.format("models/very_deep_%d.model", epoch), model)
       epoch = epoch + 1
       
       collectgarbage()

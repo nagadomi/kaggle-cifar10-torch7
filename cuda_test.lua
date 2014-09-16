@@ -1,10 +1,10 @@
 require 'cutorch'
 require 'cunn'
 require 'ccn2'
-require './nin_model'
+require './very_deep_model'
 
 local function cuda_test()
-   local model = nin_model():cuda()
+   local model = very_deep_model():cuda()
    local criterion = nn.MSECriterion():cuda()
    local x = torch.Tensor(64, 3, 24, 24):uniform():cuda()
    local y = torch.Tensor(64, 10):bernoulli(0.1):cuda()

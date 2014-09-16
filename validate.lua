@@ -4,8 +4,8 @@ require './SETTINGS'
 require './lib/minibatch_sgd'
 require './lib/data_augmentation'
 require './lib/preprocessing'
+require './very_deep_model.lua'
 --require './nin_model.lua'
-require './nin_model.lua'
 
 local function test(model, params, test_x, test_y, classes)
    local confusion = optim.ConfusionMatrix(classes)
@@ -40,7 +40,7 @@ local function validation()
    local train_y = y:narrow(1, 1, TRAIN_SIZE)
    local test_x = x:narrow(1, TRAIN_SIZE + 1, TEST_SIZE)
    local test_y = y:narrow(1, TRAIN_SIZE + 1, TEST_SIZE)
-   local model = nin_model():cuda()
+   local model = very_deep_model():cuda()
    local criterion = nn.MSECriterion():cuda()
    local sgd_config = {
       learningRate = 1.0,

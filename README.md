@@ -7,10 +7,10 @@ Code for CIFAR-10 competition. http://www.kaggle.com/c/cifar-10
 |-------------------|----------------------------------------------------------------------------------------|
 | Data Augmentation | cropping, scaling and horizontal reflection. see lib/data_augmentation.lua             |
 | Preprocessing     | Global Contrast Normalization (GCN) and ZCA whitening. see lib/preprocessing.lua       |
-| Model             | Network In Network (NIN). see nin_model.lua |
-| Training Time     | 20 hours on GTX760. |
-| Prediction Time   | 5 hours on GTX760. |
-| Result            | 0.92400 in public leaderboard. |
+| Model             | Very Deep Convolutional Networks with 3x3 kernel [1] |
+| Training Time     | 15 hours on GTX760. |
+| Prediction Time   | 4 hours on GTX760. |
+| Result            | 0.92970 in public leaderboard. |
 
 ## Developer Environment
 
@@ -74,6 +74,7 @@ data augmentation + preprocessing
 ![data-augmentation-preprocessing](https://raw.githubusercontent.com/nagadomi/kaggle-cifar10-torch7/master/figure/zca.png)
 
 ## References
-- Alex Krizhevsky, Ilya Sutskever, Geoffrey E. Hinton, "ImageNet Classification with Deep Convolutional Neural Networks"
-- Min Lin, Qiang Chen, Shuicheng Yan, "Network In Network"
-- R. Collobert, K. Kavukcuoglu, C. Farabet, "Torch7: A Matlab-like Environment for Machine Learning"
+[1] Karen Simonyan, Andrew Zisserman, "Very Deep Convolutional Networks for Large-Scale Image Recognition"
+[2] Min Lin, Qiang Chen, Shuicheng Yan, "Network In Network"
+[3] Alex Krizhevsky, Ilya Sutskever, Geoffrey E. Hinton, "ImageNet Classification with Deep Convolutional Neural Networks"
+[4] R. Collobert, K. Kavukcuoglu, C. Farabet, "Torch7: A Matlab-like Environment for Machine Learning"
