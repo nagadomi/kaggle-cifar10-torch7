@@ -74,7 +74,7 @@ data augmentation + preprocessing
 ![data-augmentation-preprocessing](https://raw.githubusercontent.com/nagadomi/kaggle-cifar10-torch7/master/figure/zca.png)
 
 ## References
-[1] Karen Simonyan, Andrew Zisserman, "Very Deep Convolutional Networks for Large-Scale Image Recognition"
-[2] Min Lin, Qiang Chen, Shuicheng Yan, "Network In Network"
-[3] Alex Krizhevsky, Ilya Sutskever, Geoffrey E. Hinton, "ImageNet Classification with Deep Convolutional Neural Networks"
-[4] R. Collobert, K. Kavukcuoglu, C. Farabet, "Torch7: A Matlab-like Environment for Machine Learning"
+- [1] Karen Simonyan, Andrew Zisserman, "Very Deep Convolutional Networks for Large-Scale Image Recognition"
+- [2] Min Lin, Qiang Chen, Shuicheng Yan, "Network In Network"
+- [3] Alex Krizhevsky, Ilya Sutskever, Geoffrey E. Hinton, "ImageNet Classification with Deep Convolutional Neural Networks"
+- [4] R. Collobert, K. Kavukcuoglu, C. Farabet, "Torch7: A Matlab-like Environment for Machine Learning"
