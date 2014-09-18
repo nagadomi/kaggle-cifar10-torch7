@@ -1,9 +1,8 @@
 require 'cunn'
 require 'ccn2'
-require './lib/SpatialAveragePooling'
 
 -- Very Deep model
-function very_deep_model() -- validate.lua Acc: 0.92
+function very_deep_model() -- validate.lua Acc: 0.924
    local model = nn.Sequential() 
    local final_mlpconv_layer = nil
    
@@ -15,12 +14,14 @@ function very_deep_model() -- validate.lua Acc: 0.92
    model:add(ccn2.SpatialConvolution(64, 64, 3, 1, 1))
    model:add(nn.ReLU())
    model:add(ccn2.SpatialMaxPooling(2, 2))
+   model:add(nn.Dropout(0.25))
       
    model:add(ccn2.SpatialConvolution(64, 128, 3, 1, 1))
    model:add(nn.ReLU())
    model:add(ccn2.SpatialConvolution(128, 128, 3, 1, 1))
    model:add(nn.ReLU())
    model:add(ccn2.SpatialMaxPooling(2, 2))
+   model:add(nn.Dropout(0.25))
    
    model:add(ccn2.SpatialConvolution(128, 256, 3, 1, 1))
    model:add(nn.ReLU())
@@ -28,7 +29,10 @@ function very_deep_model() -- validate.lua Acc: 0.92
    model:add(nn.ReLU())
    model:add(ccn2.SpatialConvolution(256, 256, 3, 1, 1))
    model:add(nn.ReLU())
+   model:add(ccn2.SpatialConvolution(256, 256, 3, 1, 1))
+   model:add(nn.ReLU())
    model:add(ccn2.SpatialMaxPooling(2, 2))
+   model:add(nn.Dropout(0.25))
    
    -- Fully Connected Layers   
    model:add(ccn2.SpatialConvolution(256, 1024, 3, 1, 0))
@@ -44,8 +48,5 @@ function very_deep_model() -- validate.lua Acc: 0.92
    model:add(nn.Reshape(10))
    model:add(nn.SoftMax())
 
-   --model:cuda()
-   --print(model:forward(torch.Tensor(32, 3, 24, 24):uniform():cuda()):size())
-   
    return model
 end

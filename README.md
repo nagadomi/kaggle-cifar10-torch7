@@ -8,9 +8,9 @@ Code for CIFAR-10 competition. http://www.kaggle.com/c/cifar-10
 | Data Augmentation | cropping, scaling and horizontal reflection. see lib/data_augmentation.lua             |
 | Preprocessing     | Global Contrast Normalization (GCN) and ZCA whitening. see lib/preprocessing.lua       |
 | Model             | Very Deep Convolutional Networks with 3x3 kernel [1] |
-| Training Time     | 15 hours on GTX760. |
+| Training Time     | 20 hours on GTX760. |
 | Prediction Time   | 4 hours on GTX760. |
-| Result            | 0.92970 in public leaderboard. |
+| Result            | 0.93320 in public leaderboard. |
 
 ## Developer Environment
 

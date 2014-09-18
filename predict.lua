@@ -32,7 +32,7 @@ local function predict(file, model, params, test_x)
 end
 local function prediction()
    local x = torch.load(string.format("%s/test_x.bin", DATA_DIR))
-   local model = torch.load("models/very_deep_15.model"):cuda()
+   local model = torch.load("models/very_deep_20.model"):cuda()
    local params = torch.load("models/preprocessing_params.bin")
    
    predict("./submission.txt", model, params, x)

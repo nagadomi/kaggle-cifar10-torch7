@@ -7,7 +7,7 @@ require './lib/preprocessing'
 require './very_deep_model.lua'
 
 function training()
-   local MAX_EPOCH = 15
+   local MAX_EPOCH = 20
    local x = torch.load(string.format("%s/train_x.bin", DATA_DIR))
    local y = torch.load(string.format("%s/train_y.bin", DATA_DIR))
    local model = very_deep_model():cuda()
