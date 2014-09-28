@@ -15,9 +15,10 @@ Code for CIFAR-10 competition. http://www.kaggle.com/c/cifar-10
 ## Developer Environment
 
 - Ubuntu 14.04
-- LuaJit/Torch7 latest
 - 32GB RAM
-- CUDA environment (GTX760 or more higher GPU)
+- CUDA (GTX760 or more higher GPU)
+- [Torch7](http://torch.ch/) latest
+- [cuda-convnet2.torch](https://github.com/soumith/cuda-convnet2.torch)
 
 ## Installation
 
@@ -26,7 +27,7 @@ Install CUDA (on Ubuntu 14.04):
     apt-get install nvidia-331
     apt-get install nvidia-cuda-toolkit
 
-Install Torch7:
+Install Torch7 (see [Torch (easy) install](https://github.com/torch/ezinstall)):
 
     curl -s https://raw.githubusercontent.com/torch/ezinstall/master/install-all | bash
 
