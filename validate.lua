@@ -5,21 +5,26 @@ require './lib/minibatch_sgd'
 require './lib/data_augmentation'
 require './lib/preprocessing'
 require './very_deep_model.lua'
---require './nin_model.lua'
 
 local function test(model, params, test_x, test_y, classes)
    local confusion = optim.ConfusionMatrix(classes)
    for i = 1, test_x:size(1) do
       local preds = torch.Tensor(10):zero()
       local x = data_augmentation(test_x[i])
-      local batch = torch.Tensor(64, x:size(2), x:size(3), x:size(4)):zero()
-      
+      local step = 64
       preprocessing(x, params)
-      batch:narrow(1, 1, x:size(1)):copy(x)
-      local z = model:forward(batch:cuda()):float()
-      -- averaging
-      for j = 1, x:size(1) do
-	 preds = preds + z[j]
+      for j = 1, x:size(1), step do
+	 local batch = torch.Tensor(step, x:size(2), x:size(3), x:size(4)):zero()
+	 local n = step
+	 if j + n > x:size(1) then
+	    n = 1 + n - ((j + n) - x:size(1))
+	 end
+	 batch:narrow(1, 1, n):copy(x:narrow(1, j, n))
+	 local z = model:forward(batch:cuda()):float()
+	 -- averaging
+	 for k = 1, n do
+	    preds = preds + z[k]
+	 end
       end
       preds:div(x:size(1))
       confusion:add(preds, test_y[i])
