@@ -1,15 +1,17 @@
 require 'torch'
 require 'image'
+require 'sys'
 
 -- memory efficient version of unsup.zca_whiten/unsup.pcacov.
 -- original version can be found at: https://github.com/koraykv/unsup/
-local function pcacov(x)
-   local mean = torch.mean(x, 1)
-   local xm = x:clone()
-   for i = 1, xm:size(1) do
-      xm[i]:add(-1, mean)
+local function pcacov(x, means)
+   for i = 1, x:size(1) do
+      x[i]:add(-1, means)
    end
-   local c = torch.mm(xm:t(), xm)
+   local c = torch.mm(x:t(), x)
+   for i = 1, x:size(1) do
+      x[i]:add(means)
+   end
    c:div(x:size(1)-1)
    local ce,cv = torch.symeig(c,'V')
    return ce,cv
@@ -21,13 +23,13 @@ local function zca_whiten(data, means, P, invP, epsilon)
     local nsamples = dims[1]
     local n_dimensions = data:nElement() / nsamples
     if data:dim() >= 3 then
-       data:resize(nsamples, n_dimensions)
+       data = data:view(nsamples, n_dimensions)
     end
     if not means or not P or not invP then 
         -- compute mean vector if not provided 
-       means = torch.mean(data, 1):squeeze()
+       means = torch.mean(data, 1)
         -- compute transformation matrix P if not provided
-       local ce, cv = pcacov(data)
+       local ce, cv = pcacov(data, means)
        collectgarbage()
        ce:add(epsilon):sqrt()
        local invce = ce:clone():pow(-1)
@@ -40,13 +42,29 @@ local function zca_whiten(data, means, P, invP, epsilon)
        invP = torch.mm(cv, diag)
        invP = torch.mm(invP, cv:t())
     end
+    collectgarbage()
     -- remove the means
     for i = 1, data:size(1) do
        data[i]:add(-1, means)
     end
     -- transform in ZCA space
-    data:copy(torch.mm(data, P))
-    data:resize(data_size)
+    if data:size(1) > 100000 then
+       -- matrix mul with 16-spliting
+       local step = math.floor(data:size(1) / 16)
+       for i = 1, data:size(1), step do
+	  local n = step
+	  if i + n > data:size(1) then
+	     n = data:size(1) - i
+	  end
+	  if n > 0 then
+	     data:narrow(1, i, n):copy(torch.mm(data:narrow(1, i, n), P))
+	  end
+	  collectgarbage()
+       end
+    else
+       data:copy(torch.mm(data, P))
+    end
+    data = data:view(data_size)
     collectgarbage()
     
     return data, means, P, invP
@@ -57,6 +75,7 @@ local function zca(x, means, P, invP)
    x:copy(ax)
    return means, P, invP
 end
+
 local function global_contrast_normalization(x, mean, std)
    local scale = 1.0
    local u = mean or x:mean(1)

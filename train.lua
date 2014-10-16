@@ -3,7 +3,6 @@ require './SETTINGS'
 require './lib/minibatch_sgd'
 require './lib/data_augmentation'
 require './lib/preprocessing'
---require './nin_model.lua'
 require './very_deep_model.lua'
 
 function training()
@@ -46,5 +45,12 @@ function training()
       collectgarbage()
    end
 end
-torch.manualSeed(11)
+local cmd = torch.CmdLine()
+cmd:text()
+cmd:text("Kaggle-CIFAR10 Training")
+cmd:text("Options:")
+cmd:option("-seed", 11, 'fixed input seed')
+local opt = cmd:parse(arg)
+print(opt.seed)
+torch.manualSeed(opt.seed)
 training()

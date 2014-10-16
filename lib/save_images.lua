@@ -6,7 +6,7 @@ function save_images(x, n, file)
    local input = x:narrow(1, 1, n)
    local view = image.toDisplayTensor({input = input,
 				       padding = 2,
-				       nrow = math.floor(math.sqrt(input:size(1))),
+				       nrow = 9,
 				       symmetric = true})
    image.save(file, view)
 end

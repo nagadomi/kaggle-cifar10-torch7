@@ -5,7 +5,10 @@ require './lib/data_augmentation'
 require './lib/preprocessing'
 require './nin_model.lua'
 
-local function predict(file, model, params, test_x)
+-- multiple model averaging
+-- (same trainset, different initial weights, different minibatch order)
+
+local function predict(file, models, params, test_x)
    local fp = io.open(file, "w")
    fp:write("id,label\n")
    for i = 1, test_x:size(1) do
@@ -20,13 +23,16 @@ local function predict(file, model, params, test_x)
 	    n = 1 + n - ((j + n) - x:size(1))
 	 end
 	 batch:narrow(1, 1, n):copy(x:narrow(1, j, n))
-	 local z = model:forward(batch:cuda()):float()
-	 -- averaging
-	 for k = 1, n do
-	    preds = preds + z[k]
+	 batch = batch:cuda()
+	 for k = 1, #models do
+	    local z = models[k]:forward(batch):float()
+	    -- averaging
+	    for l = 1, n do
+	       preds = preds + z[l]
+	    end
 	 end
       end
-      preds:div(x:size(1))
+      preds:div(x:size(1) * #models)
       
       local max_v, max_i = preds:max(1)
       fp:write(string.format("%d,%s\n", i, ID2LABEL[max_i[1]]))
@@ -40,10 +46,19 @@ local function predict(file, model, params, test_x)
 end
 local function prediction()
    local x = torch.load(string.format("%s/test_x.bin", DATA_DIR))
-   local model = torch.load("models/very_deep_20.model"):cuda()
-   local params = torch.load("models/preprocessing_params.bin")
    
-   predict("./submission_crop_scale_stretch.txt", model, params, x)
+   -- models
+   local models = {
+      torch.load("ec2/node1/very_deep_20.model"):cuda(),
+      torch.load("ec2/node2/very_deep_20.model"):cuda(),
+      torch.load("ec2/node3/very_deep_20.model"):cuda(),
+      torch.load("ec2/node4/very_deep_20.model"):cuda(),
+      torch.load("ec2/node5/very_deep_20.model"):cuda(),
+      torch.load("ec2/node6/very_deep_20.model"):cuda()
+   }
+   local params = torch.load("ec2/node1/preprocessing_params.bin")
+   
+   predict("./submission_6model.txt", models, params, x)
 end
 
 prediction()
