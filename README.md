@@ -82,7 +82,7 @@ Training with different seed parameter for each nodes.
 
 Mount the `models` directory for each nodes. for example, `ec2/node1`, `ec2/node2`, .., `ec2/node6`.
 
-Edit the path of model file in `predict_averaging.th`.
+Edit the path of model file in `predict_averaging.lua`.
 
 Run the prediction command.
 
