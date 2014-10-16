@@ -28,20 +28,11 @@ local function generate_crop_pos28()
       end
    end
 end
-local CROP_POS30 = {}
-local function generate_crop_pos30()
-   for i = 0, 2, 2 do
-      for j = 0, 2, 2 do
-	 table.insert(CROP_POS30, {i, j})
-      end
-   end
-end
 generate_crop_pos24()
 generate_crop_pos28()
-generate_crop_pos30()
 
 function data_augmentation(x, y)
-   local scale = #CROP_POS24 + #CROP_POS28 + #CROP_POS30
+   local scale = #CROP_POS24 + #CROP_POS28
    if x:dim() == 4 then
       -- jitter for training
       local new_x = torch.Tensor(x:size(1) * scale * 2,
@@ -56,9 +47,6 @@ function data_augmentation(x, y)
 	 end
 	 for j = 1, #CROP_POS28 do
 	    table.insert(images, zoomout(crop(src, CROP_POS28[j], 28)))
-	 end
-	 for j = 1, #CROP_POS30 do
-	    table.insert(images, zoomout(crop(src, CROP_POS30[j], 30)))
 	 end
 	 for j = 1, #images do
 	    new_x[scale * 2 * (i - 1) + j]:copy(images[j])
@@ -81,9 +69,6 @@ function data_augmentation(x, y)
       end
       for i = 1, #CROP_POS28 do
 	 table.insert(images, zoomout(crop(src, CROP_POS28[i], 28)))
-      end
-      for i = 1, #CROP_POS30 do
-	 table.insert(images, zoomout(crop(src, CROP_POS30[i], 30)))
       end
       for i = 1, #images do
 	 new_x[i]:copy(images[i])
