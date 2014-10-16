@@ -3,7 +3,7 @@ require 'cunn'
 require './SETTINGS'
 require './lib/data_augmentation'
 require './lib/preprocessing'
-require './nin_model.lua'
+require './very_deep_model'
 
 local function predict(file, model, params, test_x)
    local fp = io.open(file, "w")
