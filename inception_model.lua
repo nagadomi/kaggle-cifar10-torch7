@@ -1,5 +1,6 @@
 require 'cunn'
 require 'ccn2'
+require 'lib/SpatialAveragePooling'
 
 -- Inception Architecture (aka GoogLeNet)
 
@@ -64,11 +65,17 @@ function inception_model() -- validate.lua Acc:
    -- inception 4c
    model:add(inception_module(2, 512, {{128}, {128, 256}, {24, 64}, {3, 64}}))
 
-   -- maxpool
-   model:add(nn.SpatialMaxPooling(2, 2, 2, 2))
+   -- inception 4d
+   --model:add(inception_module(2, 512, {{112}, {144, 288}, {32, 64}, {3, 64}}))
+
+   -- inception 4e
+   --model:add(inception_module(2, 528, {{256}, {160, 320}, {32, 128}, {3, 128}}))
+   
+   -- global avgpool
+   model:add(nn.SpatialAveragePooling(512, 6, 6, 6, 6))
    model:add(nn.Dropout(0.4))
 
-   model:add(nn.SpatialConvolutionMM(512, 10, 3, 3, 1, 1))
+   model:add(nn.SpatialConvolutionMM(512, 10, 1, 1, 1, 1))
    model:add(nn.Reshape(10))
    model:add(nn.SoftMax())
    
