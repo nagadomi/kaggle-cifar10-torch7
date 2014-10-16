@@ -19,7 +19,7 @@ Code for CIFAR-10 competition. http://www.kaggle.com/c/cifar-10
 - CUDA (GTX760 or more higher GPU)
 - [Torch7](http://torch.ch/) latest
 - [cuda-convnet2.torch](https://github.com/soumith/cuda-convnet2.torch)
- 
+
 ## Installation
 
 Install CUDA (on Ubuntu 14.04):
@@ -69,9 +69,9 @@ dataset:
     th train.lua
     th predict.lua
 
-# MISC
+## MISC
 
-## Model Averaging
+### Model Averaging
 
 Training with different seed parameter for each nodes.
 
@@ -88,7 +88,7 @@ Run the prediction command.
 
     th predict_averaging.lua
 
-## Network In Network
+### Network In Network
 
 `./nin_model.lua` is an implementation of Network In Network [2].
 This model gives score of 0.92400.
