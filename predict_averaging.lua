@@ -57,6 +57,10 @@ local function prediction()
       torch.load("ec2/node6/very_deep_20.model"):cuda()
    }
    local params = torch.load("ec2/node1/preprocessing_params.bin")
+
+   for i = 1, #models do
+      models[i]:evaluate()
+   end
    
    predict("./submission_6model.txt", models, params, x)
 end
