@@ -15,7 +15,7 @@ Code for CIFAR-10 competition. http://www.kaggle.com/c/cifar-10
 ## Developer Environment
 
 - Ubuntu 14.04
-- 15GB RAM 
+- 15GB RAM (This codebase can run on g2.2xlarge!)
 - CUDA (GTX760 or more higher GPU)
 - [Torch7](http://torch.ch/) latest
 - [cuda-convnet2.torch](https://github.com/soumith/cuda-convnet2.torch)
