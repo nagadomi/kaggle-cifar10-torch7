@@ -40,13 +40,14 @@ Code for CIFAR-10 competition. http://www.kaggle.com/c/cifar-10
 | relu             |                                           |
 | max pooling      | kernel: 2x2, stride: 2                    |
 | dropout          | rate: 0.25                                |
-| fully connected  | channel: 1024                             |
+| linear           | channel: 1024                             |
 | relu             |                                           |
 | dropout          | rate: 0.5                                 |
-| fully connected  | channel: 1024                             |
+| linear           | channel: 1024                             |
 | relu             |                                           |
 | dropout          | rate: 0.5                                 |
-| softmax          | output: 10                                |
+| linear           | channel: 10                               |
+| softmax          |                                           |
 
 ## Developer Environment
 
