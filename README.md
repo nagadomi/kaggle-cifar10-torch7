@@ -9,7 +9,7 @@ Code for CIFAR-10 competition. http://www.kaggle.com/c/cifar-10
 | Preprocessing     | Global Contrast Normalization (GCN) and ZCA whitening. see lib/preprocessing.lua       |
 | Model             | Very Deep Convolutional Networks with 3x3 kernel [1] |
 | Training Time     | 20 hours on GTX760. |
-| Prediction Time   | 4 hours on GTX760. |
+| Prediction Time   | 2.5 hours on GTX760. |
 | Result            | 0.93320 (single model). 0.94150 (average 6 models)|
 
 ## Developer Environment

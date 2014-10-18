@@ -9,13 +9,30 @@ require './nin_model.lua'
 -- (same trainset, different initial weights, different minibatch order)
 
 local function predict(file, models, params, test_x)
+   local BATCH_SIZE = 100
+   local DA_SIZE = nil
    local fp = io.open(file, "w")
+   local preds = torch.Tensor(test_x:size(1), 10):zero()
+   if test_x:size(1) % BATCH_SIZE ~= 0 then
+      error("expect test size % " .. BATCH_SIZE .. " == 0")
+   end
    fp:write("id,label\n")
-   for i = 1, test_x:size(1) do
-      local preds = torch.Tensor(10):zero()
-      local x = data_augmentation(test_x[i])
+   for i = 1, test_x:size(1), BATCH_SIZE do
       local step = 64
+      if DA_SIZE == nil then
+	 local test_da = data_augmentation(test_x[1])
+	 DA_SIZE = test_da:size()
+      end
+      local x = torch.Tensor(BATCH_SIZE, DA_SIZE[1], DA_SIZE[2], DA_SIZE[3], DA_SIZE[4])
+      local index = torch.LongTensor(BATCH_SIZE, DA_SIZE[1])
+      for j = 1, BATCH_SIZE do
+         x[j]:copy(data_augmentation(test_x[i + j - 1]))
+	 index[j]:fill(i + j - 1)
+      end
+      x = x:view(BATCH_SIZE * DA_SIZE[1], 3, 24, 24)
+      index = index:view(BATCH_SIZE * DA_SIZE[1])
       preprocessing(x, params)
+      x = x:cuda()
       for j = 1, x:size(1), step do
 	 local batch = torch.Tensor(step, x:size(2), x:size(3), x:size(4)):zero()
 	 local n = step
@@ -28,18 +45,16 @@ local function predict(file, models, params, test_x)
 	    local z = models[k]:forward(batch):float()
 	    -- averaging
 	    for l = 1, n do
-	       preds = preds + z[l]
+	       preds[index[j + l -1]] = preds[index[j + l -1]] + z[l]
 	    end
 	 end
       end
-      preds:div(x:size(1) * #models)
-      
-      local max_v, max_i = preds:max(1)
-      fp:write(string.format("%d,%s\n", i, ID2LABEL[max_i[1]]))
-      xlua.progress(i, test_x:size(1))
-      if i % 1000 == 0 then
-	 collectgarbage()
+      for j = 1, BATCH_SIZE do
+         local max_v, max_i = preds[i + j - 1]:max(1)
+         fp:write(string.format("%d,%s\n", i + j -1, ID2LABEL[max_i[1]]))
       end
+      xlua.progress(i, test_x:size(1))
+      collectgarbage()
    end
    xlua.progress(test_x:size(1), test_x:size(1))
    fp:close()
