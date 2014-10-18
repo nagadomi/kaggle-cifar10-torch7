@@ -19,22 +19,32 @@ Code for CIFAR-10 competition. http://www.kaggle.com/c/cifar-10
 |------------------|-------------------------------------------|
 | input            | size: 24x24, channel: 3                   |
 | convolution      | kernel: 3x3, channel: 64, padding: 1      |
+| relu             |                                           |
 | convolution      | kernel: 3x3, channel: 64, padding: 1      |
+| relu             |                                           |
 | max pooling      | kernel: 2x2, stride: 2                    |
 | dropout          | rate: 0.25                                |
 | convolution      | kernel: 3x3, channel: 128, padding: 1     |
+| relu             |                                           |
 | convolution      | kernel: 3x3, channel: 128, padding: 1     |
+| relu             |                                           |
 | max pooling      | kernel: 2x2, stride: 2                    |
 | dropout          | rate: 0.25                                |
 | convolution      | kernel: 3x3, channel: 256, padding: 1     |
+| relu             |                                           |
 | convolution      | kernel: 3x3, channel: 256, padding: 1     |
+| relu             |                                           |
 | convolution      | kernel: 3x3, channel: 256, padding: 1     |
+| relu             |                                           |
 | convolution      | kernel: 3x3, channel: 256, padding: 1     |
+| relu             |                                           |
 | max pooling      | kernel: 2x2, stride: 2                    |
 | dropout          | rate: 0.25                                |
 | fully connected  | channel: 1024                             |
+| relu             |                                           |
 | dropout          | rate: 0.5                                 |
 | fully connected  | channel: 1024                             |
+| relu             |                                           |
 | dropout          | rate: 0.5                                 |
 | softmax          | output: 10                                |
 
