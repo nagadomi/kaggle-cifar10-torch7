@@ -12,6 +12,32 @@ Code for CIFAR-10 competition. http://www.kaggle.com/c/cifar-10
 | Prediction Time   | 2.5 hours on GTX760. |
 | Result            | 0.93320 (single model). 0.94150 (average 6 models)|
 
+
+## Neural Network Conﬁgurations
+
+| Layer type       | Parameters                                |
+|------------------|-------------------------------------------|
+| input            | size: 24x24, channel: 3                   |
+| convolution      | kernel: 3x3, channel: 64, padding: 1      |
+| convolution      | kernel: 3x3, channel: 64, padding: 1      |
+| max pooling      | kernel: 2x2, stride: 2                    |
+| dropout          | rate: 0.25                                |
+| convolution      | kernel: 3x3, channel: 128, padding: 1     |
+| convolution      | kernel: 3x3, channel: 128, padding: 1     |
+| max pooling      | kernel: 2x2, stride: 2                    |
+| dropout          | rate: 0.25                                |
+| convolution      | kernel: 3x3, channel: 256, padding: 1     |
+| convolution      | kernel: 3x3, channel: 256, padding: 1     |
+| convolution      | kernel: 3x3, channel: 256, padding: 1     |
+| convolution      | kernel: 3x3, channel: 256, padding: 1     |
+| max pooling      | kernel: 2x2, stride: 2                    |
+| dropout          | rate: 0.25                                |
+| fully connected  | channel: 1024                             |
+| dropout          | rate: 0.5                                 |
+| fully connected  | channel: 1024                             |
+| dropout          | rate: 0.5                                 |
+| softmax          | output: 10                                |
+
 ## Developer Environment
 
 - Ubuntu 14.04
