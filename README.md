@@ -112,6 +112,8 @@ dataset:
 
 Training with different seed parameter for each nodes.
 
+(same model, same data, different initial weights, different training order)
+
     th train.lua -seed 11
     th train.lua -seed 12
     ...
