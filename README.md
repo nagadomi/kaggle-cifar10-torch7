@@ -132,6 +132,11 @@ Run the prediction command.
 `./nin_model.lua` is an implementation of Network In Network [2].
 This model gives score of 0.92400.
 
+My NIN implementation is 2-layer NIN. Its differ from [mavenlin's implementation](https://gist.github.com/mavenlin/e56253735ef32c3c296d).
+I tried to implement the mavenlin's 3-layer NIN. However, I did not get good result.
+
+My implementation of 3-layer NIN is [here](https://gist.github.com/nagadomi/15849fb2711de78c6bf6).
+
 ## Figure
 
 data augmentation + preprocessing
