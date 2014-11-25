@@ -4,6 +4,8 @@ require 'lib/SpatialAveragePooling'
 
 -- Inception Architecture (aka GoogLeNet)
 
+-- NOTICE: This code did not test enough yet.
+
 -- inception 1x1,1x1+3x3,1x1+5x5,poolproj module
 function inception_module(depth_dim, input_size, config)
    local conv1 = nil   
@@ -72,7 +74,7 @@ function inception_model() -- validate.lua Acc:
    --model:add(inception_module(2, 528, {{256}, {160, 320}, {32, 128}, {3, 128}}))
    
    -- global avgpool
-   model:add(nn.SpatialAveragePooling(512, 6, 6, 6, 6))
+   model:add(nn.MySpatialAveragePooling(512, 6, 6, 6, 6))
    model:add(nn.Dropout(0.4))
 
    model:add(nn.SpatialConvolutionMM(512, 10, 1, 1, 1, 1))

@@ -1,4 +1,4 @@
-local SpatialAveragePooling, Parent = torch.class('nn.SpatialAveragePooling', 'nn.SpatialSubSampling')
+local SpatialAveragePooling, Parent = torch.class('nn.MySpatialAveragePooling', 'nn.SpatialSubSampling')
 
 function SpatialAveragePooling:__init(nInputPlane, kW, kH, dW, dH)
    Parent.__init(self, nInputPlane, kW, kH, dW, dH)

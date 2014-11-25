@@ -36,7 +36,7 @@ function nin_model() -- validate.lua Acc: 0.911
    final_mlpconv_layer = nn.SpatialConvolutionMM(1024, 10, 1, 1, 1, 1)
    model:add(final_mlpconv_layer)
    model:add(nn.ReLU())
-   model:add(nn.SpatialAveragePooling(10, 5, 5, 5, 5))
+   model:add(nn.MySpatialAveragePooling(10, 5, 5, 5, 5))
    model:add(nn.Reshape(10))
    model:add(nn.SoftMax())
 
