@@ -10,23 +10,21 @@ function minibatch_sgd(model, criterion,
    local batch_size = config.xBatchSize or 12
    local shuffle = torch.randperm(train_x:size(1))
    local c = 1
+   local inputs = torch.CudaTensor(batch_size,
+				   train_x:size(2),
+				   train_x:size(3),
+				   train_x:size(4))
+   local targets = torch.CudaTensor(batch_size,
+				    train_y:size(2))
    for t = 1, train_x:size(1), batch_size do
       if t + batch_size > train_x:size(1) then
 	 break
       end
       xlua.progress(t, train_x:size(1))
-      local inputs = torch.Tensor(batch_size,
-				  train_x:size(2),
-				  train_x:size(3),
-				  train_x:size(4))
-      local targets = torch.Tensor(batch_size,
-				   train_y:size(2))
       for i = 1, batch_size do
          inputs[i]:copy(train_x[shuffle[t + i - 1]])
 	 targets[i]:copy(train_y[shuffle[t + i - 1]])
       end
-      inputs = inputs:cuda()
-      targets = targets:cuda()
       
       local feval = function(x)
 	 if x ~= parameters then
