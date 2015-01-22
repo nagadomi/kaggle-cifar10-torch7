@@ -137,6 +137,10 @@ I tried to implement the mavenlin's 3-layer NIN. However, I did not get good res
 
 My implementation of 3-layer NIN is [here](https://gist.github.com/nagadomi/15849fb2711de78c6bf6).
 
+### Bug
+
+`global_contrast_normalization` in `./lib/preprocessing.lua` is wrong implementation (This function is just z-score). but I was using this implementation in the competition.
+
 ## Figure
 
 data augmentation + preprocessing
