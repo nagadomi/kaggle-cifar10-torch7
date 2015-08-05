@@ -5,9 +5,9 @@ Code for CIFAR-10 competition. http://www.kaggle.com/c/cifar-10
 ## Summary
 |                   | Description                                                                            |
 |-------------------|----------------------------------------------------------------------------------------|
-| Data Augmentation | cropping, horizontal reflection [3] and scaling. see lib/data_augmentation.lua             |
-| Preprocessing     | Global Contrast Normalization (GCN) and ZCA whitening. see lib/preprocessing.lua       |
 | Model             | Very Deep Convolutional Networks with 3x3 kernel [1] |
+| Data Augmentation | cropping, horizontal reflection [2] and scaling. see lib/data_augmentation.lua             |
+| Preprocessing     | Global Contrast Normalization (GCN) and ZCA whitening. see lib/preprocessing.lua       |
 | Training Time     | 20 hours on GTX760. |
 | Prediction Time   | 2.5 hours on GTX760. |
 | Result            | 0.93320 (single model). 0.94150 (average 6 models)|
@@ -58,6 +58,7 @@ Code for CIFAR-10 competition. http://www.kaggle.com/c/cifar-10
 - [cuda-convnet2.torch](https://github.com/soumith/cuda-convnet2.torch)
 
 ## Installation
+(This document is outdated. See: [Getting started with Torch](http://torch.ch/docs/getting-started.html))
 
 Install CUDA (on Ubuntu 14.04):
 
@@ -129,7 +130,7 @@ Run the prediction command.
 
 ### Network In Network
 
-`./nin_model.lua` is an implementation of Network In Network [2].
+`./nin_model.lua` is an implementation of Network In Network [3].
 This model gives score of 0.92400.
 
 My NIN implementation is 2-layer NIN. Its differ from [mavenlin's implementation](https://gist.github.com/mavenlin/e56253735ef32c3c296d).
@@ -149,6 +150,6 @@ data augmentation + preprocessing
 
 ## References
 - [1] Karen Simonyan, Andrew Zisserman, "Very Deep Convolutional Networks for Large-Scale Image Recognition", [link](http://arxiv.org/abs/1409.1556)
-- [2] Min Lin, Qiang Chen, Shuicheng Yan, "Network In Network", [link](http://arxiv.org/abs/1312.4400)
-- [3] Alex Krizhevsky, Ilya Sutskever, Geoffrey E. Hinton, "ImageNet Classification with Deep Convolutional Neural Networks", [link](http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks)
+- [2] Alex Krizhevsky, Ilya Sutskever, Geoffrey E. Hinton, "ImageNet Classification with Deep Convolutional Neural Networks", [link](http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks)
+- [3] Min Lin, Qiang Chen, Shuicheng Yan, "Network In Network", [link](http://arxiv.org/abs/1312.4400)
 - [4] R. Collobert, K. Kavukcuoglu, C. Farabet, "Torch7: A Matlab-like Environment for Machine Learning"
