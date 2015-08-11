@@ -140,7 +140,7 @@ My implementation of 3-layer NIN is [here](https://gist.github.com/nagadomi/1584
 
 ### Bug
 
-`global_contrast_normalization` in `./lib/preprocessing.lua` is wrong implementation (This function is just z-score). but I was using this implementation in the competition.
+`global_contrast_normalization` in `./lib/preprocessing.lua` is incorrect implementation (This function is just z-score). but I was using this implementation in the competition.
 
 ## Figure
 
