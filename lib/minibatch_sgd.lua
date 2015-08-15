@@ -17,7 +17,7 @@ function minibatch_sgd(model, criterion,
    local targets = torch.CudaTensor(batch_size,
 				    train_y:size(2))
    for t = 1, train_x:size(1), batch_size do
-      if t + batch_size > train_x:size(1) then
+      if t + batch_size - 1 > train_x:size(1) then
 	 break
       end
       xlua.progress(t, train_x:size(1))
