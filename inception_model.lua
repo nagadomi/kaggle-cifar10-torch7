@@ -2,9 +2,8 @@ require 'cunn'
 require 'ccn2'
 require 'lib/SpatialAveragePooling'
 
--- Inception Architecture (aka GoogLeNet)
-
--- NOTICE: This code did not test enough yet.
+-- Inception Architecture
+-- NOTICE: This code did not test enough yet. This implementation doesn't have auxiliary classifiers. It gives me accuracy of 88%. I didn't use this model in kaggle CIFAR-10 competition. 
 
 -- inception 1x1,1x1+3x3,1x1+5x5,poolproj module
 function inception_module(depth_dim, input_size, config)
